@@ -27,6 +27,7 @@ BuildRequires:  yaml-cpp >= 0.5
 BuildRequires:  yaml-cpp-devel >= 0.5
 BuildRequires:  opencc
 BuildRequires:  opencc-devel
+Requires:       rime
 
 %description
 Rime Input Method Engine - riming with your keystrokes.
