@@ -35,9 +35,9 @@ Rime Input Method Engine - riming with your keystrokes.
 %setup -q
 
 %build
-cd librime; make  %{?_smp_mflags}
+cd librime; make %{?_smp_mflags} && make install
 cd ..
-cd plum; make %{?_smp_mflags}
+cd plum; make %{?_smp_mflags} && make install
 cd ..
 make clean && make %{?_smp_mflags}
 
