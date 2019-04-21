@@ -42,6 +42,7 @@ cd ..
 make clean && make %{?_smp_mflags}
 
 %install
+cmake -DCMAKE_INSTALL_PREFIX=/usr
 make install %{?_smp_mflags}
 
 %files
