@@ -1,0 +1,55 @@
+dist: xenial
+sudo: required
+
+language: cpp
+
+branches:
+  only:
+    - master
+
+cache:
+    directories:
+      - $HOME/.cache
+ 
+env:
+    global:
+      # Environment variables for packaging
+      - PRODUCT=ibus-rime
+      - VERSION=1.4.0
+      - RELEASE=1
+      - ARCH=x86_64
+      # Dockerfile from https://github.com/flameshotapp/flameshot-docker-images
+      - DOCKER_REPO=vitzy/flameshot
+
+# The actual list of distribution is available on
+# https://hub.docker.com/r/vitzy/flameshot/tags/
+matrix:
+    include:
+        - os: linux
+          # 27
+          env: OS=fedora DIST=27 EXTEN=rpm
+          services: docker
+        - os: linux
+          # 28
+          env: OS=fedora DIST=28 EXTEN=rpm
+          services: docker
+        - os: linux
+          # 29
+          env: OS=fedora DIST=29 EXTEN=rpm
+          services: docker
+
+before_install:
+  - chmod +x .travis/*.sh
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then source .travis/linux_before_install.sh; fi
+
+install:
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then source .travis/linux_install.sh; fi
+
+script:
+  - git submodule update --init
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then source .travis/linux_script.sh; fi
+
+after_success:
+  - if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then source .travis/linux_after_success.sh; fi
+  - echo "Download URL is $TEMP_DOWNLOAD_URL ."
+
