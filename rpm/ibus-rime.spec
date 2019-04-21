@@ -35,14 +35,14 @@ Rime Input Method Engine - riming with your keystrokes.
 %setup -q
 
 %build
-cd librime; make %{?_smp_mflags} && make install
+cd librime; make %{?_smp_mflags} && sudo make install
 cd ..
-cd plum; make %{?_smp_mflags} && make install
+cd plum; make %{?_smp_mflags} && sudo make install
 cd ..
 make clean && make %{?_smp_mflags}
 
 %install
-make DESTDIR=%{buildroot} install %{?_smp_mflags}
+make DESTDIR=%{buildroot} sudo install %{?_smp_mflags}
 
 %files
 %defattr(-,root,root)
